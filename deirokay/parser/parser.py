@@ -12,6 +12,7 @@ from pandas import (DataFrame, Timestamp, read_csv, read_excel, read_parquet,
                     read_sql)
 
 from deirokay._typing import DeirokayOption, DeirokayOptionsDocument
+from deirokay.core import DeirokayDataFrame, DeirokaySeries
 from deirokay.enums import DTypes
 from deirokay.fs import fs_factory
 from deirokay.utils import _check_columns_in_df_columns
@@ -198,6 +199,8 @@ def data_treater(df: DataFrame, options: dict) -> None:
     """
     _check_columns_in_df_columns(options.keys(), df.columns)
 
+    df = DeirokayDataFrame(df)
+
     for col, opt in options.items():
         option: dict = opt.copy()
 
@@ -212,3 +215,5 @@ def data_treater(df: DataFrame, options: dict) -> None:
 
         if rename_to is not None:
             df.rename(columns={col: rename_to}, inplace=True)
+
+    return df
