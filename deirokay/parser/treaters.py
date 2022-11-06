@@ -117,11 +117,15 @@ class BooleanTreater(Validator):
     """Treater for boolean-like variables"""
 
     def __init__(self,
-                 truthies: List[str] = ['true', 'True'],
-                 falsies: List[str] = ['false', 'False'],
+                 truthies: List[str] = None,
+                 falsies: List[str] = None,
                  ignore_case: bool = False,
                  default_value: Optional[bool] = None,
                  **kwargs):
+        if truthies is None:
+            truthies = ['true', 'True']
+        if falsies is None:
+            falsies = ['false', 'False']
         super().__init__(**kwargs)
 
         assert default_value in (True, False, None)
