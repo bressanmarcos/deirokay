@@ -85,17 +85,20 @@ class DeirokayOperator(BaseOperator):
     ):
         super().__init__(**kwargs)
 
-        assert bool(data) is not bool(path_to_file), (
-            'Declare either `data` or `path_to_file`, but not both.'
-        )
+        if bool(data) is bool(path_to_file):
+            raise AssertionError(
+                'Declare either `data` or `path_to_file`, but not both.'
+            )
         if path_to_file:
             warnings.warn(
                 'The argument `path_to_file` is deprecated and will be'
                 ' removed in next major release. Use `data` instead.',
                 DeprecationWarning
             )
-        assert options
-        assert against
+        if not options:
+            raise AssertionError
+        if not against:
+            raise AssertionError
         self.data = data or path_to_file
         self.options = options
         self.against = against
