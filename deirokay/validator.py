@@ -181,9 +181,10 @@ def validate(df: pandas.DataFrame, *,
     else:
         save_format = save_format or 'yaml'
         validation_document = deepcopy(against)
-    assert save_format.lower() in ('json', 'yaml', 'yml'), (
-        f'Not a valid format {save_format}'
-    )
+    if save_format.lower() not in ('json', 'yaml', 'yml'):
+        raise AssertionError(
+            f'Not a valid format {save_format}'
+        )
 
     # Render templates
     template = dict(

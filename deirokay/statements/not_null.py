@@ -100,7 +100,8 @@ class NotNull(BaseStatement):
         self.at_most_perc = self.options.get('at_most_%', 100.0)
         self.multicolumn_logic = self.options.get('multicolumn_logic', 'any')
 
-        assert self.multicolumn_logic in ('any', 'all')
+        if self.multicolumn_logic not in ('any', 'all'):
+            raise AssertionError
 
     # docstr-coverage:inherited
     def report(self, df: DataFrame) -> dict:
