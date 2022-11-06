@@ -245,7 +245,8 @@ class FileSystem():
         raise TypeError()
 
     def __lt__(self, other: 'FileSystem') -> bool:
-        assert isinstance(self, type(other))
+        if not isinstance(self, type(other)):
+            raise AssertionError
         return self.path.__lt__(other.path)
 
     def __str__(self) -> str:
