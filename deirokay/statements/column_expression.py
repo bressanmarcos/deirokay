@@ -96,7 +96,7 @@ class ColumnExpression(BaseStatement):
 
         self.valid_expressions = ['==', '!=', '=~', '>=', '<=', '>', '<']
         for expr in self.expressions:
-            if not any([x in expr for x in self.valid_expressions]):
+            if not any(x in expr for x in self.valid_expressions):
                 raise SyntaxError('Expression comparison operand not found')
 
     # docstr-coverage:inherited
