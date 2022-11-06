@@ -124,7 +124,8 @@ class BooleanTreater(Validator):
                  **kwargs):
         super().__init__(**kwargs)
 
-        assert default_value in (True, False, None)
+        if default_value not in (True, False, None):
+            raise AssertionError
 
         self.ignore_case = ignore_case
         self.default_value = default_value

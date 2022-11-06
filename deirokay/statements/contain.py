@@ -231,9 +231,12 @@ class Contain(BaseStatement):
             self.max_occurrences = max_occurrences_rule_default[self.rule]
 
     def _assert_parameters(self) -> None:
-        assert self.rule in ('all', 'only', 'all_and_only')
-        assert self.min_occurrences >= 0
-        assert self.max_occurrences >= 0
+        if self.rule not in ('all', 'only', 'all_and_only'):
+            raise AssertionError
+        if self.min_occurrences < 0:
+            raise AssertionError
+        if self.max_occurrences < 0:
+            raise AssertionError
 
     # docstr-coverage:inherited
     def report(self, df: DataFrame) -> dict:
